@@ -1,0 +1,70 @@
+#include <iosteam>
+#include<stack>
+/*
+// HACKER BLOCK PROBLEM
+Delete middle element of a stack.
+
+Sample Input
+5
+1 2 3 4 5 
+Sample Output
+5 4 2 1
+*/
+
+
+
+using namespace std;
+
+ // Function that deletes the middle of the stack of size n. Current is current 
+ // position we’re on 
+void deleteMiddle(stack<int> &s, int n,int current)
+{
+	// Base case
+   // If stack becomes empty or all items already are traversed
+   if (s.empty() || current == n)
+     return;
+ 
+
+ // Recursive case
+   // Remove current item
+   int x = s.top();
+   s.pop();
+ 
+   // Call for removing the other items
+   deleteMiddle(s, n, current+1);
+ 
+   // Push all the elements back other than the middle one
+   if (current != n/2)
+     s.push(x);
+}
+
+
+int main()
+{
+    stack<int> s;
+
+   int n;
+   cin>>n;
+   int arr[n];
+   for (int i=0;i<n;i++)
+   {
+       cin>>arr[i];
+
+   }
+   for(int j=0;j<n;j++)
+   {
+       s.push(arr[j]);
+   }
+    int current = 0;
+    deleteMiddle(s, s.size(),current);
+ 
+    // Printing stack after deletion of the middle element.
+    while (!s.empty())
+    {
+        int p = s.top();
+        s.pop();
+        cout << p << " ";
+    }
+    return 0;
+   
+}
