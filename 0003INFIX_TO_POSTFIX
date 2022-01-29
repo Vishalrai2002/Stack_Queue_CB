@@ -29,7 +29,7 @@ Output - abc/-ak/l-*
    {
        return 2;
    }
-   else if(ch=='-' || ch=='+')
+   else if(ch=='+' || ch=='-')
    {
        return 1;
    }
@@ -56,7 +56,7 @@ string InfixtoPostfix(string s)
         {
             st.push(s[i]);
         }
-        else if(s[i]==')') 
+        else if(s[i]==')') // Pop until you got opening bracket
         {
             while(!st.empty() && st.top()!='(')
             {
@@ -74,6 +74,7 @@ string InfixtoPostfix(string s)
             st.push(s[i]);
         }
     }
+    // Check kuch rah toh nahi gaya hai
     while (!st.empty())
     {
         res+=st.top();
