@@ -63,7 +63,10 @@ string InfixtoPostfix(string s)
                 res+=st.top();
                 st.pop();
             }  
-          st.pop();
+            if(!st.empty())
+            {
+            st.pop();
+            }
         }
         else{
             while(!st.empty() && (Preced(st.top())>=Preced (s[i])))
