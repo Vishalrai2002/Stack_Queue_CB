@@ -1,0 +1,92 @@
+#include<iostream>
+#include<stack>
+#include<math.h>
+using namespace std;
+
+/*
+
+Infix to Postfix Expression
+Steps->
+> If operands then print.
+> If '(' push to stack.
+> If ')' pop from the stack and print until '(' is found.
+> If operator then pop form stack and print until an operator with less precedence is found.
+
+Input - (a-b/c)*(a/k-l)
+Output - abc/-ak/l-*
+
+*/
+
+
+// Check Precendence
+  int Preced(char ch)
+{
+   if(ch=='^')
+   {
+       return 3;
+   }
+   else if(ch=='*' || ch=='/')
+   {
+       return 2;
+   }
+   else if(ch=='-' || ch=='+')
+   {
+       return 1;
+   }
+   else{
+       // When Opening Brackets came
+       return -1;
+   }
+}
+
+
+string InfixtoPostfix(string s)
+    {
+    stack<char>st;
+    string res="";
+
+    for(int i=0;i<s.length();i++)
+    {
+        // Check for operands
+        if((s[i]>='a' && s[i]<='z') || (s[i]>='A' && s[i]<='Z'))
+        {
+            res+=s[i];
+        }
+        else if(s[i]=='(') // Open bracket then push
+        {
+            st.push(s[i]);
+        }
+        else if(s[i]==')') 
+        {
+            while(!st.empty() && st.top()!='(')
+            {
+                res+=st.top();
+                st.pop();
+            }  
+          st.pop();
+        }
+        else{
+            while(!st.empty() && (Preced(st.top())>=Preced (s[i])))
+            {
+                  res+=st.top();
+                  st.pop();
+            }
+            st.push(s[i]);
+        }
+    }
+    while (!st.empty())
+    {
+        res+=st.top();
+        st.pop();
+    }
+    return res;
+    
+    }
+
+
+ int main()
+ {
+     string s="(a-b/c)*(a/k-l)";
+    cout<<InfixtoPostfix(s);
+     return 0;
+ }
