@@ -1,0 +1,98 @@
+#include<iostream>
+#include<stack>
+#include<algorithm>
+#include<math.h>
+using namespace std;
+
+/*
+
+This problem is same as our infix to postfix there are some minor changes which are given below -
+> Firstly reverse the whole string.
+> Then change all brackets also like change all bracket which are in infix to postfix.
+> Then after returning the ans reverse the "res" again.
+
+Infix to Postfix Expression
+Steps->
+> If operands then print.
+> If '(' push to stack.
+> If ')' pop from the stack and print until '(' is found.
+> If operator then pop form stack and print until an operator with less precedence is found.
+
+Input - (a-b/c)*(a/k-l)
+Output - *-a/bc-/akl
+*/
+
+int preced(char ch)
+{
+    if(ch=='^')
+    {
+        return 3;
+    }
+    else if(ch=='*' || ch=='/')
+    {
+        return 2;
+    }
+    else if(ch=='+' || ch=='-')
+    {
+        return 1;
+    }
+    else{ // Open Bracket came
+        return -1;
+    }
+}
+
+string InfixtoPrifix(string s)
+{
+    // Firstly reverse the whole string
+    reverse(s.begin(),s.end());
+   
+     stack<char>st;
+     string res="";
+     for(int i=0;i<s.length();i++)
+     {
+        if(s[i]>='a' && s[i]<='z' || s[i]>='A' && s[i]<='Z')
+        {
+            res+=s[i];
+        }
+        // Change all brackets which are in previous problem
+        else if(s[i]==')')
+        {
+            st.push(s[i]);
+        }
+        else if(s[i]=='(')
+        {
+            while(!st.empty() && st.top()!=')')
+            {
+                res+=st.top();
+                st.pop();
+            }
+            if(!st.empty())
+            {
+            st.pop();
+            }
+        }
+        else{
+            while(!st.empty() && preced(st.top()) >=preced(s[i]))
+            {
+                res+=st.top();
+                st.pop();
+            }
+            st.push(s[i]);
+        }
+     }
+        while(!st.empty()) // Kuch bacha toh nahi
+        {
+            res+=st.top();
+            st.pop();
+        }
+        // Reverse before returning the res.
+     reverse(res.begin(),res.end());
+     return res;
+}
+
+int main()
+{
+    string s="(a-b/c)*(a/k-l)";
+    cout<<InfixtoPrifix(s);
+    return 0;
+}
