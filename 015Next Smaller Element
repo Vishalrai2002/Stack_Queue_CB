@@ -4,7 +4,7 @@
 #include<stack>
 using namespace std;
 
-// // Next Smaller Element or Next Smaller from Right 
+// // Next Smaller Element or Next Smaller from Left 
 // // HackerBlocks Problem
 
 // Sample Input
