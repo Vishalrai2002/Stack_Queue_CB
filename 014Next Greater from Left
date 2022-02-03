@@ -15,6 +15,9 @@ using namespace std;
 // Sample Output
 // -1 -1 3 -1
 
+// Changes are :> left to right traverse
+//              > No need of doing reverse in this problem
+		
 vector<long long> nextLargerElement(vector<long long> arr, int n){
     vector<long long> v; // creating a vector for storing result 
     stack <long long> s; // creating a stack for temp. hold the values from array
