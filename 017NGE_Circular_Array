@@ -1,0 +1,60 @@
+#include<iostream>
+#include<vector>
+#include<stack>
+using namespace std;
+
+// Function to find the Next Greater Element(NGE) in Circular array
+
+/*
+Input: 3
+       1 2 1
+
+Output: 2 -1 2
+*/
+void printNGE(int *a, int n)
+{
+	stack <int> s;
+	vector<int> ans(n);
+    // i=2*n-1 to make it circular
+		for(int i=2*n-1;i>=0;i--)
+		{
+			while(!s.empty() && a[i%n]>=s.top()){
+				s.pop();
+            }
+			if(i<n){
+			if(!s.empty())
+			{
+				ans[i]=s.top();
+			}
+			else
+			{
+				ans[i]=-1;			
+			}
+			}
+			s.push(a[i%n]);
+		}
+	
+	for (int i = 0; i < n; i++) {
+		cout<<ans[i]<<" ";
+	}
+}
+
+// Driver Code
+int main()
+{
+	// Given array arr[]
+    int n;
+    cin>>n;
+    int arr[n];
+    for(int i=0;i<n;i++)
+    {
+        cin>>arr[i];
+    }
+
+	int N = sizeof(arr) / sizeof(arr[0]);
+
+	// Function call
+	printNGE(arr, N);
+
+	return 0;
+}
