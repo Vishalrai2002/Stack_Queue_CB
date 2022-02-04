@@ -1,0 +1,80 @@
+#include<iostream>
+#include<vector>
+#include<stack>
+#include<climits>
+using namespace std;
+
+// the main thing to know, while solving the problem is
+// ki har ek area jo ban sakta hai usme ek aissa bar hoga jo pura ayega
+
+long long int maxArea(int *arr,int n)
+{
+    // left vector to store, ki kisi bhi ek full bar ke liye
+    // left me kaha tk ha area include ho skta hai
+
+    // right vector to store,ki kisi bhi ek full bar ke liye
+    // right me kaha tk ka area include ho sakta hai
+
+    vector<long long int> left(n),right(n);
+    stack<long long int >s;
+
+    // filling left vector using stack
+    for (int i=0;i<n;i++)
+    {
+        while(!s.empty() and arr[s.top()]>=arr[i])
+        {
+            s.pop();
+        }
+        if(s.empty()){
+            // agar stack empty hai to
+            // left case ke liye hamesha 0 hoga end point
+            left[i]=0;
+        }
+        else{
+            left[i]=s.top()+1;
+        }
+        s.push(i); // index ko push kiya stack me, jha tk bhra ja sakta hai
+    }
+    // clear krenge stack to taki usse hi right ke liye bhi use kr sake
+    while(!s.empty())
+    {
+        s.pop();
+    }
+
+    // filling the right vector
+    for(int i=n-1;i>=0;i--){
+    while(!s.empty() and arr[s.top()]>=arr[i])
+    {
+        s.pop();
+    }
+    if(s.empty())
+    {
+        // agar stack empty ho gaya toh
+        // right side me maximum tak bhra ja sakta hai
+        right[i]=n-1;
+    }
+    else{
+        right[i]=s.top()-1;
+    }
+    s.push(i);// index ko push kiya stack me, jha tk bhra ja sakta hai
+
+}
+     long long int mx_area=INT_MIN; // to store max area at the time of calculating area
+      for(int i=0;i<n;i++)
+         {
+             mx_area=max(mx_area,arr[i]*(right[i]-left[i]+1));
+          }
+return mx_area;
+}
+int main()
+{
+    int n;
+    cin>>n;
+    int arr[n];
+    for(int i=0;i<n;i++)
+    {
+        cin>>arr[i];
+    }
+    cout<<maxArea(arr,n);
+    return 0;
+}
