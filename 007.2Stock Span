@@ -1,38 +1,55 @@
 #include <iostream> 
 #include <stack> 
 using namespace std; 
-
-// Hacker Blocks Problem
-
 // stock span values 
-void calculateSpan(int price[], int n, int S[]) 
+// HackeBlocks Problem
+
+/*
+Sample Input
+5
+30
+35
+40
+38
+35
+
+Sample Output
+1 2 3 1 1 END
+*/
+
+// if price decrease then our stock become 1 always
+// and if price increase then increase its value gradually
+
+void calculateSpan(int *price, int n, int *S) 
 { 
 	// Create a stack and push index of first 
 	// element to it 
 	stack<int>st; 
-	st.push(0); 
 
-	// Span value of first element is always 1 
+	// Span value of first element is always  1 
 	S[0] = 1; 
 
-	// Calculate span values for rest of the elements 
+	// Calculate span values for rest of the elements which is start from 1
 	for (int i = 1; i < n; i++) { 
 		// Pop elements from stack while stack is not 
-		// empty and top of stack is smaller than 
-		// price[i] 
+		// empty and top of stack is smaller than price[i] 
 		while (!st.empty() && price[st.top()] <= price[i]) 
+        {
+
 			st.pop(); 
+        }
 
 		// If stack becomes empty, then price[i] is 
 		// greater than all elements on left of it, 
-		// i.e., price[0], price[1], ..price[i-1]. Else 
-		// price[i] is greater than elements after 
-		// top of stack 
-		// S[i] = (st.empty()) ? (i + 1) : (i - st.top()); 
+		// i.e., price[0], price[1], ..price[i-1].
         if(st.empty())
         {
             S[i]=i+1;
         }
+         
+		// Else price[i] is greater than elements after 
+		// top of stack 
+		// S[i] = (st.empty()) ? (i + 1) : (i - st.top()); 
         else{
             S[i]=i-st.top();
             st.push(i);
@@ -44,7 +61,7 @@ void calculateSpan(int price[], int n, int S[])
 } 
 
 // A utility function to print elements of array 
-void printArray(int arr[], int n) 
+void printArray(int *arr, int n) 
 { 
 	for (int i = 0; i < n; i++) 
 		cout << arr[i] << " "; 
