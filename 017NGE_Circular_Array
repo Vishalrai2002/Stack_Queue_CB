@@ -58,3 +58,38 @@ int main()
 
 	return 0;
 }
+
+// // C++ code to find the next greater element
+// // in circular array.
+// #include <bits/stdc++.h>
+// using namespace std;
+
+// // Function to find the Next Greater Element(NGE)
+// void printNGE(int nums[], int n)
+// {
+// 	// Stores the next greater element for index i.
+// 	vector<int> ans(n, -1);
+// 	stack<int> s;
+// 	for (int i = 0; i < 2 * n; i++) {
+// 		while (!s.empty() && nums[s.top()] < nums[i % n]) {
+// 			ans[s.top()] = nums[i % n];
+// 			s.pop();
+// 		}
+// 		if (i < n)
+// 			s.push(i);
+// 	}
+// 	for (auto it : ans)
+// 		cout << it << " ";
+// }
+
+// // Driver Code
+// int main()
+// {
+// 	int arr[] = { 8, 6, 7 };
+// 	int N = sizeof(arr) / sizeof(arr[0]);
+// 	printNGE(arr, N);
+// 	return 0;
+// }
+
+// // This code is contributed by Aditya Kumar (adityakumar129)
+
